@@ -1,15 +1,15 @@
-package Spreadsheet::Engine::Function::is;
+package Spreadsheet::Engine::Fn::logical;
 
 use strict;
 use warnings;
 
-use base 'Spreadsheet::Engine::Function::base';
+use base 'Spreadsheet::Engine::Fn::base';
 
 sub argument_count { 1 }
 
 sub result {
   my $self = shift;
-  my $result = $self->calculate($self->next_operand) ? 1 : 0;
+  my $result = $self->calculate ? 1 : 0;
   return Spreadsheet::Engine::Value->new(type => 'nl', value => $result);
 }
 
@@ -19,26 +19,25 @@ __END__
 
 =head1 NAME
 
-Spreadsheet::Engine::Function::is - base class for IS functions
+Spreadsheet::Engine::Fn::logical - base class for logical functions
 
 =head1 SYNOPSIS
 
-  use base 'Spreadsheet::Engine::Function::is';
+  use base 'Spreadsheet::Engine::Fn::logical';
 
-  sub calculate { ... }
+  sub calculate { return 1 | 0 }
 
 =head1 DESCRIPTION
 
 This provides a base class for spreadsheet functions that perform
-IS checks (ISBLANK(), ISERR()) etc.
-mathematical functions on a single argument (ABS(), SIN(), SQRT() etc).
+return a TRUE or FALSE value.
 
 =head1 INSTANCE METHODS
 
 =head2 calculate
 
-Subclasses should provide 'calculate' function that will be called with 
-the major type and the full type of the referenced value.
+Subclasses should provide 'calculate' function that will return either 1
+or 0.
 
 =head1 HISTORY
 
